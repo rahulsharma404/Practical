@@ -1,240 +1,244 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 struct Student
 {
-    int rollno;
-    char name[20];
+    int roll_no;
+    string name;
     double SGPA;
 };
-
 class Student_Data
 {
 public:
-    int n, l, u;
-    Student a[20], temp, pivot;
+    int n;
+    Student v[20];
+    Student temp;
+    void get_data();
     void display();
-    void getData();
-    void rollcall();
-    void name_data();
-    int partition_of_SGPA(int, int);
-    void quickSort(int, int);
-    void searchLinear();
-    void searchBinary();
+    void roll_call();
+    void alpha_name();
+    int partition(int low, int high);
+    void quickSort(int low, int high);
+    void linearSearch();
+    void binarySearch();
 };
-void Student_Data::getData()
+void Student_Data ::get_data()
 {
-    cout << "Enter number of students: ";
+    cout << "-------------------------------------------" << endl;
+    cout << "Enter number of students : ";
     cin >> n;
+    cout << "-------------------------------------------" << endl;
     for (int i = 0; i < n; i++)
     {
-        cout << "Enter Roll number: ";
-        cin >> a[i].rollno;
-        cout << "Enter Name of Student: ";
-        cin >> a[i].name;
-        cout << "Enter SGPA: ";
-        cin >> a[i].SGPA;
-        if (a[i].SGPA > 10)
+        cout << "::"
+             << "Data Entry for Student " << i + 1 << "::" << endl;
+        cout << "Enter Roll Number : ";
+        cin >> v[i].roll_no;
+
+        cout << "Enter name of Student : ";
+        cin >> v[i].name;
+
+        cout << "Enter SGPA of Student : ";
+        cin >> v[i].SGPA;
+        while (v[i].SGPA > 10)
         {
-            cout << "Please enter less than 10 again " << endl;
-            cin >> a[i].SGPA;
+            cout << "Please enter less than 10 again" << endl;
+            cout << "Enter the SGPA of Student: ";
+            cin >> v[i].SGPA;
         }
-        cout << "--------------------------------" << endl;
+        cout << "-------------------------------------------" << endl;
     }
 }
-
-void Student_Data::display()
+void Student_Data ::display()
 {
+    cout << "ROLL NO"
+         << "\t\t\t\t\t\t"
+         << "NAME"
+         << "\t\t\t\t\t\t"
+         << "SGPA" << endl;
+
     for (int i = 0; i < n; i++)
     {
-        cout << a[i].rollno << "\t" << a[i].name << "\t" << a[i].SGPA << endl;
+        cout << v[i].roll_no << "\t\t\t\t\t\t" << v[i].name << "\t\t\t\t\t\t" << v[i].SGPA << endl;
     }
+    cout << "-------------------------------------------" << endl;
 }
-
-void Student_Data::rollcall()
+void Student_Data ::roll_call()
 {
+    bool flag;
     for (int i = 0; i < n - 1; i++)
     {
-        int flag = 0;
-        for (int j = 0; j < n - i - 1; j++)
+        flag = false;
+        for (int j = 0; j < n - 1 - i; j++)
         {
-            if (a[j].rollno > a[j + 1].rollno)
+            if (v[j].roll_no > v[j + 1].roll_no)
             {
-                temp = a[j];
-                a[j] = a[j + 1];
-                a[j + 1] = temp;
-                flag = 1;
+                swap(v[j], v[j + 1]);
+                flag = true;
             }
         }
-        if (flag == 0)
+
+        if (flag == false)
         {
             break;
         }
     }
-    cout << "\nOutput data:\n"
-         << endl;
-    cout << "RollNo\t"
-         << "Name\t"
-         << "SGPA" << endl;
-    for (int i = 0; i < n; i++)
-    {
-        cout << a[i].rollno << "\t" << a[i].name << "\t" << a[i].SGPA << endl;
-    }
-}
-
-void Student_Data::name_data()
-{
-    for (int i = 0; i < n; i++)
-    {
-        temp = a[i];
-        string key = a[i].name;
-        int j = i - 1;
-        while (j >= 0 && a[j].name > key)
-        {
-            a[j + 1] = a[j];
-            j--;
-        }
-        a[j + 1] = temp;
-    }
-    cout << "\nOutput Data" << endl;
+    cout << "Data according to roll call : " << endl;
     display();
 }
-
-int Student_Data::partition_of_SGPA(int s, int e)
+void Student_Data ::alpha_name()
 {
-    int pivot = a[e].SGPA;
-    int pi = s;
-    for (int i = s; i < e; i++)
+    for (int i = 1; i < n; i++)
     {
-        if (a[i].SGPA >= pivot)
+        temp = v[i];
+        string key = v[i].name;
+        int j = i - 1;
+        while (j >= 0 && v[j].name > key)
         {
-            temp = a[i];
-            a[i] = a[pi];
-            a[pi] = temp;
-            pi++;
+            v[j + 1] = v[j];
+            j--;
+        }
+        v[j + 1] = temp;
+    }
+    cout << "Data according to name : " << endl;
+    display();
+}
+int Student_Data ::partition(int low, int high)
+{
+    int pivot = v[low].SGPA;
+    int i = low;
+    int j = high;
+    while (i < j)
+    {
+        while (v[i].SGPA >= pivot)
+        {
+            i++;
+        }
+        while (v[j].SGPA < pivot)
+        {
+            j--;
+        }
+        if (i < j)
+        {
+            swap(v[i], v[j]);
         }
     }
-    temp = a[e];
-    a[e] = a[pi];
-    a[pi] = temp;
-    return pi;
+    swap(v[low], v[j]);
+    return j;
 }
-
-void Student_Data::quickSort(int s, int e)
+void Student_Data ::quickSort(int low, int high)
 {
-    if (s < e)
+    if (low < high)
     {
-        int p = partition_of_SGPA(s, e);
-
-        quickSort(s, (p - 1));
-        quickSort((p + 1), e);
+        int pivot = partition(low, high);
+        quickSort(low, pivot - 1);
+        quickSort(pivot + 1, high);
     }
 }
-
-void Student_Data::searchLinear()
+void Student_Data ::linearSearch()
 {
-    string dataElement;
-    cout << "\nEnter Data Element which u want to find in Array::";
-    cin >> dataElement;
-    int flag = 0;
+    string str;
+    cout << "Enter the name of the student : ";
+    cin >> str;
+    bool flag = false;
     for (int i = 0; i < n; i++)
     {
-        if (a[i].name == dataElement)
+        if (str == v[i].name)
         {
-            cout << "\nElement found at position: " << i << endl;
-            cout << a[i].rollno << " " << a[i].name << " " << a[i].SGPA;
-            flag = 1;
+            flag = true;
+            cout << "-------------------------------------------" << endl;
+            cout << "DataSet of " << str << endl;
+            cout << "ROLL NO"
+                 << "\t\t\t\t\t\t"
+                 << "NAME"
+                 << "\t\t\t\t\t\t"
+                 << "SGPA" << endl;
+            cout << v[i].roll_no << "\t\t\t\t\t\t" << v[i].name << "\t\t\t\t\t\t" << v[i].SGPA << endl;
+            cout << "-------------------------------------------" << endl;
         }
     }
-    if (flag == 0)
+    if (flag == false)
     {
         cout << "Element not found" << endl;
     }
 }
-
-void Student_Data::searchBinary()
+void Student_Data ::binarySearch()
 {
-    int l = 0, r = n - 1, mid, data;
-    cout << "Enter SGPA to find students: ";
-    cin >> data;
-    int flag = 0;
-    while (l < r)
+    double key;
+    cout << "Enter the SGPA : ";
+    cin >> key;
+
+    while (key > 10)
     {
-        mid = (l + r) / 2;
-        if (data == a[mid].SGPA)
+        cout << "Please enter less than 10 again" << endl;
+        cout << "Enter the SGPA : ";
+        cin >> key;
+    }
+    int low = 0;
+    int high = n - 1;
+    int mid = low + (high - low) / 2;
+    bool flag = false;
+    cout << "-------------------------------------------" << endl;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (key == v[i].SGPA)
         {
-            cout << "Element found at position: " << mid << endl;
-            cout << a[mid].rollno << " " << a[mid].name << " " << a[mid].SGPA;
-            flag = 1;
-            break;
-        }
-        else if (data < a[mid].SGPA)
-        {
-            r = mid - 1;
-        }
-        else
-        {
-            l = mid + 1;
+            flag = true;
+            cout << "ROLL NO :   " << v[i].roll_no << "\t\t\t\t\t\t NAME :   " << v[i].name << "\t\t\t\t\t\t  SGPA :   " << v[i].SGPA << endl;
         }
     }
-    if (flag == 0)
-        cout << "Element not found." << endl;
+    if (flag == false)
+    {
+        cout << "Element not found" << endl;
+    }
+    cout << "-------------------------------------------" << endl;
 }
-
 int main()
 {
-
     Student_Data obj;
-    obj.getData();
-    int choice;
-    do
+    obj.get_data();
+    int x = 1;
+    while (x)
     {
-        cout << "\nWhat you want to do? \n1.Display list by roll number wise. \n2.Display list in alphabetical order.\n3.Topper students of class. \n4.To search student by name. \n5.To search student by SGPA." << endl;
-        cout << "Enter choice: ";
+        int choice;
+        cout << "-----------------------------------------" << endl;
+        cout << "1. Sort data by Roll Call" << endl;
+        cout << "2. Sort data by Alphabetical order" << endl;
+        cout << "3. Sort data by SGPA" << endl;
+        cout << "4. Access data by name" << endl;
+        cout << "5. Access data by SGPA" << endl;
+        cout << "0. To exit" << endl;
+        cout << "-----------------------------------------" << endl
+             << endl;
+        cout << "Choice : ";
         cin >> choice;
         switch (choice)
         {
         case 0:
-        {
+            x = 0;
+            cout<<"Exit..."<<endl;
             break;
-        }
         case 1:
-        {
-            cout << "Roll number wise list" << endl;
-            obj.rollcall();
+            obj.roll_call();
             break;
-        }
         case 2:
-        {
-            cout << "List in Alphabetical order." << endl;
-            obj.name_data();
+            obj.alpha_name();
             break;
-        }
         case 3:
-        {
-            cout << "Rank wise list of Toppers" << endl;
-            obj.quickSort(0, 14);
+            obj.quickSort(0, obj.n - 1);
             obj.display();
             break;
-        }
         case 4:
-        {
-            cout << "Searching student by name: " << endl;
-            obj.searchLinear();
+            obj.linearSearch();
             break;
-        }
         case 5:
-        {
-            cout << "Searching student by SGPA: " << endl;
-            obj.searchBinary();
+            obj.binarySearch();
             break;
-        }
         default:
-        {
-            cout << "Wrong choice." << endl;
+            cout<<"Wrong choice"<<endl;
             break;
         }
-        }
-    } while (choice != 0);
+    }
+
     return 0;
 }
