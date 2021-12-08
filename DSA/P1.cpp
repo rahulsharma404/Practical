@@ -242,3 +242,135 @@ int main()
 
     return 0;
 }
+
+
+/*
+-------------------------------------------
+Enter number of students : 5
+-------------------------------------------
+::Data Entry for Student 1::
+Enter Roll Number : 2
+Enter name of Student : shiva
+Enter SGPA of Student : 6.8
+-------------------------------------------
+::Data Entry for Student 2::
+Enter Roll Number : 3 
+Enter name of Student : lucky
+Enter SGPA of Student : 9.1
+-------------------------------------------
+::Data Entry for Student 3::
+Enter Roll Number : 1
+Enter name of Student : neha
+Enter SGPA of Student : 12
+Please enter less than 10 again
+Enter the SGPA of Student: 10
+-------------------------------------------
+::Data Entry for Student 4::
+Enter Roll Number : 5
+Enter name of Student : naira
+Enter SGPA of Student : 7.4
+-------------------------------------------
+::Data Entry for Student 5::
+Enter Roll Number : 4
+Enter name of Student : maya
+Enter SGPA of Student : 8.9
+-------------------------------------------
+-----------------------------------------
+1. Sort data by Roll Call
+2. Sort data by Alphabetical order
+3. Sort data by SGPA
+4. Access data by name
+5. Access data by SGPA
+0. To exit
+-----------------------------------------
+
+Choice : 1
+Data according to roll call : 
+ROLL NO                                         NAME                                            SGPA
+1                                               neha                                            10
+2                                               shiva                                           6.8
+3                                               lucky                                           9.1
+4                                               maya                                            8.9
+5                                               naira                                           7.4
+-------------------------------------------
+-----------------------------------------
+1. Sort data by Roll Call
+2. Sort data by Alphabetical order
+3. Sort data by SGPA
+4. Access data by name
+5. Access data by SGPA
+0. To exit
+-----------------------------------------
+
+Choice : 2
+Data according to name : 
+ROLL NO                                         NAME                                            SGPA
+3                                               lucky                                           9.1
+4                                               maya                                            8.9
+5                                               naira                                           7.4
+1                                               neha                                            10
+2                                               shiva                                           6.8
+-------------------------------------------
+-----------------------------------------
+1. Sort data by Roll Call
+2. Sort data by Alphabetical order
+3. Sort data by SGPA
+4. Access data by name
+5. Access data by SGPA
+0. To exit
+-----------------------------------------
+
+Choice : 3
+ROLL NO                                         NAME                                            SGPA
+1                                               neha                                            10
+3                                               lucky                                           9.1
+4                                               maya                                            8.9
+5                                               naira                                           7.4
+2                                               shiva                                           6.8
+-------------------------------------------
+-----------------------------------------
+1. Sort data by Roll Call
+2. Sort data by Alphabetical order
+3. Sort data by SGPA
+4. Access data by name
+5. Access data by SGPA
+0. To exit
+-----------------------------------------
+
+Choice : 4
+Enter the name of the student : naira
+-------------------------------------------
+DataSet of naira
+ROLL NO                                         NAME                                            SGPA
+5                                               naira                                           7.4
+-------------------------------------------
+-----------------------------------------
+1. Sort data by Roll Call
+2. Sort data by Alphabetical order
+3. Sort data by SGPA
+4. Access data by name
+5. Access data by SGPA
+0. To exit
+-----------------------------------------
+
+Choice : 5
+Enter the SGPA : 9.1
+-------------------------------------------
+ROLL NO :   3                                            NAME :   lucky                                           SGPA :   9.1
+-------------------------------------------
+-----------------------------------------
+1. Sort data by Roll Call
+2. Sort data by Alphabetical order
+3. Sort data by SGPA
+4. Access data by name
+5. Access data by SGPA
+0. To exit
+-----------------------------------------
+
+Choice : 0
+Exit...
+
+
+
+
+*/
